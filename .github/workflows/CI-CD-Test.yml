@@ -36,17 +36,14 @@ jobs:
 
       - name: gradle build를 위한 권한 설정
         run: |
-          cd ./CI-CD-Test
           chmod +x gradlew
 
       - name:  gradle build
         run: |
-          cd ./CI-CD-Test
           ./gradlew build -x test
 
       - name:  docker image build 후 docker hub에 push
         run: |
-          cd ./CI-CD-Test
           docker login -u ${{ secrets.MAIN_DOCKER_USERNAME }} -p ${{ secrets.MAIN_DOCKER_PASSWORD }}
           docker build -t ${{ secrets.MAIN_DOCKER_REPOSITORY }}/${{ secrets.MAIN_DOCKER_IMAGE }} .
           docker push ${{ secrets.MAIN_DOCKER_REPOSITORY }}/${{ secrets.MAIN_DOCKER_IMAGE }}
